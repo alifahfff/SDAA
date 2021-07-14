@@ -1,0 +1,4 @@
+-nanyain cara ngubah infix ke postfix boleh pake stack dulu langsung ke  binary in atau bisa langsung
+-kalau ubah infix ke postfix pake stack stringnya kan bisa bedain pake stack baru ke tree in, kalau ubah infix ke  postfix langsung pake binary tree cara bedain string (operator sama operand) nya gimana?
+
+Assalamualaikum izin bertanya bu, di project tubes kalkulator menggunakan binary tree saya ingin menanyakan beberapa hal. apakah bisa mengubah notasi infix ke postfix langsung menggunakan binary tree? jika memang bisa bagaimana cara membedakan operator dan operand yang sudah di inputkan sebelumnya oleh user? apakah boleh saat pengubahan notasi infix ke prefix menggunakan stack terlebih dahulu baru setelahnya dilanjutkan ke struktur tree?
