@@ -7,18 +7,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef char* infotype;
 typedef struct node *NodeTree;
 
-typedef struct infotype{
-	int num
-	char opr
+typedef struct Infotype{
+	double num;
+	char opr;
 };
 
 struct node 
 {
 	bool isNum; // operator or operand checker
-	Infotype data; // Data Node
+	Infotype info; // info Node
 	NodeTree Left; //Left Node
 	NodeTree Right; //Right Node
 	NodeTree Parent; //Parent Node
