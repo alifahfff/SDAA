@@ -2,6 +2,10 @@
 #include <conio.h>
 #include <windows.h>
 
+#include "stack.h"
+#include "binarytree.h"
+
+
 void gotoxy(int x, int y){
     COORD coord;
     coord.X = x;
@@ -24,7 +28,7 @@ int main(){
 	switch(pilihan){
 		case 1:		
 			break;
-		case 2:
+		case 2: //evaluatePostfix();
 			break;
 		case 3:
 			break;

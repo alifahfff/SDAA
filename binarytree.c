@@ -22,7 +22,7 @@ boolean isEmptyNode(NodeTree node)
 	}
 }
 
-NodeTree CreateNode(infotype X)
+NodeTree CreateNode(Infotype X)
 {
 	NodeTree P;
 	
@@ -97,7 +97,7 @@ void PostOrder(NodeTree tr)
 	}
 }
 
-void PreOrder(Nodetree tr)
+void PreOrder(NodeTree tr)
 {
 	if(tr != NULL){
 		printf("%s ",tr->info);
