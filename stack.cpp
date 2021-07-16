@@ -1,4 +1,4 @@
-#include "Stack.h"
+#include "stack.h"
 
 int isEmpty_stack(Stack *stack)
 {
@@ -76,57 +76,57 @@ void remove_stack(Stack *stack)
 }
 
 //-----------------EVALUATE POSTFIX----------------------//
-int evaluatePostfix(char* exp)
-{
-    // Create a stack of capacity equal to expression size
-    struct Stack* stack = createStack(strlen(exp));
-    int i;
-  
-    // See if stack was created successfully
-    if (!stack) return -1;
-  
-    // Scan all characters one by one
-    for (i = 0; exp[i]; ++i)
-    {
-        //if the character is blank space then continue
-        if(exp[i]==' ')continue;
-          
-        // If the scanned character is an 
-        // operand (number here),extract the full number
-        // Push it to the stack.
-        else if (isdigit(exp[i]))
-        {
-            int num=0;
-              
-            //extract full number
-            while(isdigit(exp[i])) 
-            {
-            num=num*10 + (int)(exp[i]-'0');
-                i++;
-            }
-            i--;
-              
-            //push the element in the stack
-            push(stack,num);
-        }
-          
-        // If the scanned character is an operator, pop two
-        // elements from stack apply the operator
-        else
-        {
-            int val1 = pop(stack);
-            int val2 = pop(stack);
-              
-            switch (exp[i])
-            {
-            case '+': push(stack, val2 + val1); break;
-            case '-': push(stack, val2 - val1); break;
-            case '*': push(stack, val2 * val1); break;
-            case '/': push(stack, val2/val1); break;
-              
-            }
-        }
-    }
-    return pop(stack);
-}
+//int evaluatePostfix(char* exp)
+//{
+//    // Create a stack of capacity equal to expression size
+//    struct Stack* stack = createStack(strlen(exp));
+//    int i;
+//  
+//    // See if stack was created successfully
+//    if (!stack) return -1;
+//  
+//    // Scan all characters one by one
+//    for (i = 0; exp[i]; ++i)
+//    {
+//        //if the character is blank space then continue
+//        if(exp[i]==' ')continue;
+//          
+//        // If the scanned character is an 
+//        // operand (number here),extract the full number
+//        // Push it to the stack.
+//        else if (isdigit(exp[i]))
+//        {
+//            int num=0;
+//              
+//            //extract full number
+//            while(isdigit(exp[i])) 
+//            {
+//            num=num*10 + (int)(exp[i]-'0');
+//                i++;
+//            }
+//            i--;
+//              
+//            //push the element in the stack
+//            push(stack,num);
+//        }
+//          
+//        // If the scanned character is an operator, pop two
+//        // elements from stack apply the operator
+//        else
+//        {
+//            int val1 = pop(stack);
+//            int val2 = pop(stack);
+//              
+//            switch (exp[i])
+//            {
+//            case '+': push(stack, val2 + val1); break;
+//            case '-': push(stack, val2 - val1); break;
+//            case '*': push(stack, val2 * val1); break;
+//            case '/': push(stack, val2/val1); break;
+//              
+//            }
+//        }
+//    }
+//    return pop(stack);
+//}
 
