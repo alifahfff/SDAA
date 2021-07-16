@@ -12,7 +12,7 @@ StackNode pop(Stack *stack);
 void remove_stack(Stack *stack);
 
 //-----------MODUL TAMBAHAN-----------//
-//int evaluatePostfix();
-
+int evaluatepostfix(char* ch);
+int is_operand(char* ch);
 #endif // STACK_H_INCLUDED
 
