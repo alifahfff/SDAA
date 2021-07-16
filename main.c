@@ -28,7 +28,11 @@ int main(){
 	switch(pilihan){
 		case 1:		
 			break;
-		case 2: //evaluatePostfix();
+		case 2: 
+			system("cls");
+			printf("Masukkan postfix ya : ");
+			scanf("%c", ch);
+			evaluatepostfix(ch);
 			break;
 		case 3:
 			break;
