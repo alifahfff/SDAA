@@ -75,12 +75,60 @@ void remove_stack(Stack *stack)
 	}
 }
 
+
+//-----------------NGECEK OPERATOR-----------------------//
+int is_operand(char ch)
+{
+	if(ch>='a'&&ch<='z' || ch>='A'&&ch<='Z')
+	return 1;
+	else
+	return 0;
+}
 //-----------------EVALUATE POSTFIX----------------------//
-//int evaluatePostfix(char* exp)
-//{
-//    // Create a stack of capacity equal to expression size
-//    struct Stack* stack = createStack(strlen(exp));
-//    int i;
+int evaluatepostfix(char* ch)
+{
+    // Create a stack of capacity equal to expression size
+    struct Stack* stack = make_stack();
+    int i=0,op1,op2,result,nilai;
+    char nampung;
+    
+    while(ch[i]!='\0')
+		{
+			nampung=ch[i];
+				if(is_operand(nampung)==1)
+				{
+					printf("masukan angka %c : ", nampung);
+					scanf("%d", &nilai);
+					push(nilai);
+				}
+				else
+				{
+					op2=pop();
+					op1=pop();
+					switch(nampung)
+					{
+						case '+': result=op1+op2;
+								  push(result);
+								  break;
+						case '-': result=op1-op2;
+								  push(result);
+								  break;
+						case '*': result=op1*op2;
+								  push(result);
+								  break;
+						case '/': result=op1/op2;
+								  push(result);
+								  break;
+					}
+				}
+			i++;
+		}
+	result= pop();
+	printf("hasilnya adalah ini bgst : %d", result);
+	
+	getch();
+	return 0;
+}
 //  
 //    // See if stack was created successfully
 //    if (!stack) return -1;

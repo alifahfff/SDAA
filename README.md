@@ -1,2 +1,0 @@
-# SDAA
-YUK BISA YUK
