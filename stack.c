@@ -1,180 +1,135 @@
 #include "stack.h"
 
-int isEmpty_stack(Stack *stack)
+void initStack(Stack **p)
 {
-	if(!stack) {
-		puts("the stack doesn't exist.");
-		return TRUE;
-	}
-	return stack->topNode == NULL;
+	(*p) = NULL;
 }
 
-StackNode* make_stack_node()
+int EmptyStack(Stack* p)
 {
-	StackNode *tmp = (StackNode*)calloc(sizeof(StackNode), 1);
-	if(!tmp){
-		puts("memory is full-using.");
-		exit(1);
-	}
-	return tmp;
-}
-
-Stack* make_stack()
-{
-	Stack *tmp = (Stack*)calloc(sizeof(Stack), 1);
-	if(!tmp) {
-		puts("memory is full-using.");
-		exit(1);
-	}
-	return tmp;
-}
-
-void print_stack_node(StackNode *tNode)
-{
-	if(!tNode)	return;
-	if(tNode->isChar){
-		printf("%c", tNode->data.opr);
-	}
-	else{
-		printf("%g", tNode->data.num);
-	}
-}
-
-void push(Stack *stack, Data datum, int isChar)
-{
-	StackNode *tmp = make_stack_node();
-	if(!tmp) {
-		puts("memory is full-using.");
-		exit(1);
-	}
-	tmp->data = datum;
-	tmp->isChar = isChar;
-	tmp->pNode = stack->topNode;
-	stack->topNode = tmp;
-}	
-
-StackNode pop(Stack *stack)
-{
-	StackNode res;
-	res.data = dummy_data;
-	res.isChar = FALSE;
-	if(!stack || isEmpty_stack(stack))	return res;
-	res = *(stack->topNode);
-	StackNode *tmp = stack->topNode;
-	stack->topNode = tmp->pNode;
-	free(tmp);
-	return res;
-}
-
-void remove_stack(Stack *stack)
-{
-	StackNode sn;
-	while(!isEmpty_stack(stack)) {
-		sn = pop(stack);
-		print_stack_node(&sn);
-	}
-}
-
-
-//-----------------NGECEK OPERATOR-----------------------//
-int is_operand(char ch)
-{
-	if(ch>='a'&&ch<='z' || ch>='A'&&ch<='Z')
-	return 1;
+	if ( p == NULL)
+		return 1;
 	else
-	return 0;
+		return 0;
 }
-//-----------------EVALUATE POSTFIX----------------------//
-int evaluatepostfix(char* ch)
-{
-    // Create a stack of capacity equal to expression size
-    struct Stack* stack = make_stack();
-    int i=0,op1,op2,result,nilai;
-    char nampung;
-    
-    while(ch[i]!='\0')
-		{
-			nampung=ch[i];
-				if(is_operand(nampung)==1)
-				{
-					printf("masukan angka %c : ", nampung);
-					scanf("%d", &nilai);
-					push(nilai);
-				}
-				else
-				{
-					op2=pop();
-					op1=pop();
-					switch(nampung)
-					{
-						case '+': result=op1+op2;
-								  push(result);
-								  break;
-						case '-': result=op1-op2;
-								  push(result);
-								  break;
-						case '*': result=op1*op2;
-								  push(result);
-								  break;
-						case '/': result=op1/op2;
-								  push(result);
-								  break;
-					}
-				}
-			i++;
-		}
-	result= pop();
-	printf("hasilnya adalah ini bgst : %d", result);
-	
-	getch();
-	return 0;
-}
-//  
-//    // See if stack was created successfully
-//    if (!stack) return -1;
-//  
-//    // Scan all characters one by one
-//    for (i = 0; exp[i]; ++i)
-//    {
-//        //if the character is blank space then continue
-//        if(exp[i]==' ')continue;
-//          
-//        // If the scanned character is an 
-//        // operand (number here),extract the full number
-//        // Push it to the stack.
-//        else if (isdigit(exp[i]))
-//        {
-//            int num=0;
-//              
-//            //extract full number
-//            while(isdigit(exp[i])) 
-//            {
-//            num=num*10 + (int)(exp[i]-'0');
-//                i++;
-//            }
-//            i--;
-//              
-//            //push the element in the stack
-//            push(stack,num);
-//        }
-//          
-//        // If the scanned character is an operator, pop two
-//        // elements from stack apply the operator
-//        else
-//        {
-//            int val1 = pop(stack);
-//            int val2 = pop(stack);
-//              
-//            switch (exp[i])
-//            {
-//            case '+': push(stack, val2 + val1); break;
-//            case '-': push(stack, val2 - val1); break;
-//            case '*': push(stack, val2 * val1); break;
-//            case '/': push(stack, val2/val1); break;
-//              
-//            }
-//        }
-//    }
-//    return pop(stack);
-//}
 
+Elm top(Stack* p)
+{
+	if (!EmptyStack(p))
+		return p->info;
+	else
+		printf("Eror: Stack Kosong! ");
+}
+
+void push(Stack** p, Elm e)
+{
+	Stack* q;
+	q = (Stack*)malloc(sizeof(Stack));
+	q->info = e;
+	q->svt = (*p);
+	(*p) = q;
+}
+
+void pop(Stack** p, Elm* e)
+{
+	Stack *top;
+	top = (*p);
+	(*p) = top->svt;
+	*e = top->info;
+	free(top);
+}
+
+Stack* infixtoPostfix(Elm* t, int n)
+{
+	Stack *p, *r;
+	Elm x;
+	int i;
+	initStack(&p);
+	initStack(&r);
+	for(i = 0; i < n; i++)
+	{
+		if(operande(t[i]))
+			push(&r, t[i]);
+		else if(operateur(t[i]))
+		{
+			while((!EmptyStack(p))&&(operateur(top(p)))&&(priorite(t[i]) >= priorite(top(p))))
+			{
+				pop(&p, &x);
+				push(&r, x);
+			}
+			push(&p, t[i]);
+		}
+		else if(t[i].val == 6.0)
+			push(&p, t[i]);
+		else
+		{
+			while((!EmptyStack(p)) && !((top(p).val == 6.0)&&(!top(p).operand)))
+			{
+				pop(&p, &x);
+				push(&r, x);
+			}
+			pop(&p, &x);
+		}
+	}
+	while(!EmptyStack(r))
+	{
+		pop(&r, &x);
+		push(&p, x);
+	}
+	return p;
+}
+
+
+void PrintStack(Stack* p, Stack* r)
+{
+	printf("\t[  p  ]\t\t[  r  ]\n");
+	/*on va traiter les piles comme des liste chaines simples pour ne pas perdre les élément*/
+	Stack* pTmp;
+	Stack* rTmp;
+	for( pTmp = p, rTmp = r; (pTmp)&&(rTmp); pTmp = pTmp->svt, rTmp = rTmp->svt)
+	{
+		printf("\t");
+		afficheElm(pTmp->info);
+		printf("\t\t");
+		afficheElm(rTmp->info);
+		printf("\n");
+	}
+	for( ;(pTmp); pTmp = pTmp->svt)
+	{
+		printf("\t");
+		afficheElm(pTmp->info);
+		printf("\n");
+	}
+	for( ;(rTmp); rTmp = rTmp->svt)
+	{
+		printf("\t\t\t");
+		afficheElm(rTmp->info);
+		printf("\n");
+	}
+}
+
+
+
+double Evaluate(Stack** p)
+{
+	Elm resultat, x, x1, x2;
+	resultat.operand = 1;
+	Stack *r;
+	initStack(&r);
+	while(!EmptyStack((*p)))
+	{
+		PrintStack( *p, r);
+		pop(p, &x);
+		if (operande(x))
+			push(&r, x);
+		else
+		{
+			pop(&r, &x2);
+			pop(&r, &x1);
+			resultat.val = operation(x1, x, x2);
+			push(&r, resultat);
+		}
+		//printf("----------------------------------\n");
+	}
+	return top(r).val;
+}

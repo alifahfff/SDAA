@@ -39,17 +39,24 @@ typedef struct Root
 } Root;
 
 
-typedef struct StackNode
-{
-	int isChar;
-	Data data;
-	struct StackNode *pNode;
-} StackNode;
+//typedef struct StackNode
+//{
+//	int isChar;
+//	Data data;
+//	struct StackNode *pNode;
+//} StackNode;
+//
+//typedef struct Stack
+//{
+//	StackNode *topNode;
+//} Stack;
 
-typedef struct Stack
-{
-	StackNode *topNode;
-} Stack;
+typedef struct Node{
+	int data;
+	Node *next;
+}sNode;
+
+sNode *atas;
 
 
 typedef struct input{
@@ -58,6 +65,6 @@ typedef struct input{
 	char opr;
 }input;
 
-const static Data dummy_data = {0};
+//const static Data dummy_data = {0};
 
 #endif

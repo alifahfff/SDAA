@@ -1,18 +1,45 @@
-#ifndef STACK_H_INCLUDED
-#define STACK_H_INCLUDED
+#ifndef stack_H_INCLUDED
+#define stack_H_INCLUDED
 
-#include "common.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "evaluasi.h"
 
-int isEmpty_stack(Stack *stack);
-StackNode* make_stack_node();
-Stack* make_stack();
-void print_stack_node(StackNode*);
-void push(Stack *stack, Data datum, int isChar);
-StackNode pop(Stack *stack);
-void remove_stack(Stack *stack);
+/** struct stack **/
+typedef struct elmPile
+{
+	Elm info;
+	struct elmPile* svt;
+}Stack;
 
-//-----------MODUL TAMBAHAN-----------//
-int evaluatepostfix(char* ch);
-int is_operand(char* ch);
+/* Inisialisasi stack */
+void initStack(Stack** p);
+
+
+/** Memeriksa isi stack **/
+int EmptyStack(Stack* p);
+
+
+/** Return nilai pada top stack**/
+Elm top(Stack* p);
+
+
+/** Push **/
+void push(Stack** p, Elm e);
+
+
+/** Pop **/
+void pop(Stack** p, Elm* e);
+
+/** Kembalikan elemen stack dari array ke dalam bentuk postfix**/
+Stack* infixtoPostfix(Elm* t, int n);
+
+/** Menampilkan isi stack **/
+void PrintStack(Stack* p, Stack* r);
+
+
+/** Evaluasi stack  **/
+double Evaluate(Stack** p);
+
+
 #endif // STACK_H_INCLUDED
-
