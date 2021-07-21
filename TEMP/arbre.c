@@ -1,4 +1,4 @@
-#include "Tree.h"
+#include "arbre.h"
 
 int isEmptyTree(bTree* T)
 {
@@ -47,7 +47,7 @@ int StackAEmpty(StackAbTree* p)
 	return p == NULL;
 }
 
-Tree* TopStackA(StackAbTree* p)
+bTree* TopStackA(StackAbTree* p)
 {
 	return p->info;
 }
@@ -77,17 +77,17 @@ bTree* constTree(Elm* X, int n)
 	initStack(&p);
 	p = infixtoPostfix(X, n);
 	/*création de l'Tree*/
-	Tree* f;
-	Tree* f1;
-	Tree* f2;
+	bTree* f;
+	bTree* f1;
+	bTree* f2;
 	/*initialiser la Stack Pops Trees*/
 	StackAbTree* pTree;
 	initStackA(&pTree);
 
 	Elm I;
-	while(!StackEmpty(p))
+	while(!StackAEmpty(p))
 	{
-		PopStackr(&p, &I);
+		PopStackrA(&p, &I);
 		if(isOperand(I))
 		{
 			f = CreateNode(I);

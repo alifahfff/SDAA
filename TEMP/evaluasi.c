@@ -1,6 +1,6 @@
 #include "evaluasi.h"
 
-int charAdmis(char c)
+int charValidation(char c)
 {
 	if ( ((c >= '0')&&(c <= '9')) ||
 		 (c == '+') || (c == '-') ||
@@ -12,17 +12,17 @@ int charAdmis(char c)
 		return 0;
 }
 
-int lexiqueJuste(char* exp)
+int verify(char* exp)
 {
 	int i;
 	/*vérifier si tout les caractères sont admis*/
 	for(i = 0; (i < L_MAX)&&(exp[i] != '\0'); i++)
-		if ( !charAdmis(exp[i]) )
+		if ( !charValidation(exp[i]) )
 			return 0;
 	return 1;
 }
 
-int charOperande(char c)
+int isCharOperand(char c)
 {
 	if ((c >= '0')&&(c <= '9'))
 		return 1;
@@ -30,7 +30,7 @@ int charOperande(char c)
 		return 0;
 }
 
-int charOperateur(char c)
+int isCharOperator(char c)
 {
 	if ((c == '+') || (c == '-') ||
 		(c == '*') || (c == '/') || (c == '%'))
@@ -39,12 +39,12 @@ int charOperateur(char c)
 		return 0;
 }
 
-int syntaxiqueJuste(char* exp)
+int parenthesis(char* exp)
 {
 	int i;
 	int nbParO = 0, nbParF = 0; //nombre de parenthèses ouvrantes et fermentes
 	//début de l'expression doit être un opérande ou signe - ou '(' sinon je retourne 0
-	if (!charOperande(exp[0])&&(exp[0] != '-')&&(exp[0]!='('))
+	if (!isCharOperand(exp[0])&&(exp[0] != '-')&&(exp[0]!='('))
 		return 0;
 	//return 0 si 2 signes '-' au début
 	if ((exp[0] == '-')&&(exp[1] == '-'))
@@ -57,26 +57,26 @@ int syntaxiqueJuste(char* exp)
 	{
 		/*return 0 si exp[i] un opérateur et ch[i+1] est ni opérande ni signe '-' ni '('
 			on ne peut pas avoir deux opérateurs successive */
-		if((charOperateur(exp[i]))&&(!charOperande(exp[i+1]))&&(exp[i+1] != '(')&&(exp[i+1] != '-'))
+		if((isCharOperator(exp[i]))&&(!isCharOperand(exp[i+1]))&&(exp[i+1] != '(')&&(exp[i+1] != '-'))
 			return 0;
 		/*return 0 si exp[i] est '(' et ch[i+1] est ni opérande ni signe '-' ni '('
 			on ne peut pas avoir deux opérateurs successive */
-		if((exp[i] == '(')&&(!charOperande(exp[i+1]))&&(exp[i+1] != '(')&&(exp[i+1] != '-'))
+		if((exp[i] == '(')&&(!isCharOperand(exp[i+1]))&&(exp[i+1] != '(')&&(exp[i+1] != '-'))
 			return 0;
 		/*return 0 si exp[i] est une ')' et exp[i+1] n'est pas un opérateur
 		   on ne peut pas avoir une '(' suivie par une opérande */
-		if ((exp[i] == ')')&&(exp[i+1] != ')')&&(exp[i+1] != '\0')&&(!charOperateur(exp[i+1])))
+		if ((exp[i] == ')')&&(exp[i+1] != ')')&&(exp[i+1] != '\0')&&(!isCharOperator(exp[i+1])))
 			return 0;
 		/*return 0 si exp[i] est un opérande et exp[i+1] est '('
 			un opérande ne peut pas être suivi par '('*/
-		if((charOperande(exp[i]))&&(exp[i+1] == '('))
+		if((isCharOperand(exp[i]))&&(exp[i+1] == '('))
 			return 0;
 		/*return 0 si plus de 3 signe '-' successive
 		   on accepte le cas de a--y <=> a - (-y) */
 		if((exp[i-1] == '-')&&(exp[i] == '-')&&(exp[i+1] == '-'))
 			return 0;
 		/*return 0 si . après pas un chiffre (opérande) */
-		if((exp[i] == '.')&&(!charOperande(exp[i+1])))
+		if((exp[i] == '.')&&(!isCharOperand(exp[i+1])))
 			return 0;
 		/*calcule de nombre de '(' et ')' */
 		if (exp[i] == '(')
@@ -92,9 +92,9 @@ int syntaxiqueJuste(char* exp)
 	return 1;
 }
 
-void chaineAuFloat(char *ch, Elm *t, int *n)
+void StringtoFloat(char *ch, Elm *t, int *n)
 {
-	 int iCh, iT, iC;
+	int iCh, iT, iC;
     char c[L_MAX];
     for(iCh = 0, iT =0; (iCh < L_MAX)&&(ch[iCh] != '\0'); iT++)
 	{
@@ -134,7 +134,7 @@ void chaineAuFloat(char *ch, Elm *t, int *n)
 			t[iT].operand = 0;
 			iCh++;
 		}
-		else if ((ch[iCh] == '-')&&(iCh > 0)&&(!charOperateur(ch[iCh-1]))&&(ch[iCh-1] != '('))
+		else if ((ch[iCh] == '-')&&(iCh > 0)&&(!isCharOperator(ch[iCh-1]))&&(ch[iCh-1] != '('))
 		{/*insertion du Elm de la '-' 5 : 0 */
 			t[iT].val = 5.0;
 			t[iT].operand = 0;
@@ -146,7 +146,7 @@ void chaineAuFloat(char *ch, Elm *t, int *n)
 			for(iC = 0; (ch[iCh] != '\0'); iC++, iCh++)
 			{
 				/*on arrête a la rencontre d'un opérande suivi par un opérateur ou une ')'*/
-				if((charOperande(ch[iCh - 1]))&&((charOperateur(ch[iCh]))||(ch[iCh] == ')')))
+				if((isCharOperand(ch[iCh - 1]))&&((isCharOperator(ch[iCh]))||(ch[iCh] == ')')))
 					break;
 				c[iC] = ch[iCh];
 			}
@@ -162,7 +162,7 @@ void chaineAuFloat(char *ch, Elm *t, int *n)
 }
 
 
-int operateur(Elm e)
+int isOperator(Elm e)
 {
 	/*opérateur déférant de opérande et déférant de '(' et de ')'*/
 	if( (!e.operand)&&(e.val != 6.0)&&(e.val != 7.0))
@@ -171,12 +171,12 @@ int operateur(Elm e)
 		return 0;
 }
 
-int operande(Elm e)
+int isOperand(Elm e)
 {
 	return e.operand;
 }
 
-int priorite(Elm e)
+int priority(Elm e)
 {
 	/*
 	 * 1=> '*'
@@ -205,14 +205,14 @@ double operation(Elm x1, Elm op, Elm x2)
 }
 
 
-void afficheElm(Elm e)
+void PrintElm(Elm e)
 {
-	if(operande(e))
-	{//si e est un operande on affiche 3 chifre apres la virgule
+	if(isOperand(e))
+	{//si e est un isOperand on affiche 3 chifre apres la virgule
 		printf("[%.3f]", e.val);
 	}
 	else
-	{//si c'est deferant de l'operande en affiche son code entaire
+	{//si c'est deferant de l'isOperand en affiche son code entaire
 		printf("[%3.0f]", e.val);
 	}
 }

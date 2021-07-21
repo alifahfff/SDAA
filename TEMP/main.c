@@ -3,7 +3,7 @@
 #include <windows.h>
 
 #include "stack.h"
-#include "binarytree.h"
+#include "arbre.h"
 
 
 void gotoxy(int x, int y){
@@ -49,7 +49,7 @@ int main(){
                 int n;
                 Stack* p;
                 float resultat;
-//                Arbre* a;
+                bTree* T;
                 char repeter;
 				do
 				{
@@ -59,8 +59,8 @@ int main(){
 					/* verifikasi ekpresi leksikal dan syntax */
 					
 					syn = lex = 0;
-					lex = lexiqueJuste(Exp);
-					syn = lex? syntaxiqueJuste(Exp) : 0;
+					lex = verify(Exp);
+					syn = lex? parenthesis(Exp) : 0;
 					if(!lex)
 						printf("Ekpresi leksikal tidak benar!.\n");
 					else if(!syn)
@@ -71,7 +71,7 @@ int main(){
 						ChoisTypeEvaluation = choisireTypeEvaluation();
 			
 						/* Mengubah ekpresi menjadi array */
-						chaineAuFloat(Exp, t, &n);
+						StringtoFloat(Exp, t, &n);
 			
 						switch (ChoisTypeEvaluation)
 						{
@@ -82,11 +82,17 @@ int main(){
 								resultat = Evaluate(&p);
 								printf("Hasilnya adalah ini : %.3f\n", resultat);
 								break;
+							case 2:
+								T = constbTree(t, n);
+								/* create tree */
+								PrintbTree(T);
+								resultat = EvaluatebTree(T);
+								printf("Hasilnya adalah ini : %.3f\n", resultat);
 						}
 					}
 						puts("Mau ngitung lagi ga?(y/g)");
 			            printf("> ");
-			            //vider le buffer
+			    
 			            while ((repeter = getchar()) != '\n' && repeter != EOF);
 			            scanf( "%c", &repeter);
 			    }while((repeter == 'y')||(repeter == 'Y'));

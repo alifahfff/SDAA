@@ -48,11 +48,11 @@ Stack* infixtoPostfix(Elm* t, int n)
 	initStack(&r);
 	for(i = 0; i < n; i++)
 	{
-		if(operande(t[i]))
+		if(isOperand(t[i]))
 			push(&r, t[i]);
-		else if(operateur(t[i]))
+		else if(isOperator(t[i]))
 		{
-			while((!EmptyStack(p))&&(operateur(top(p)))&&(priorite(t[i]) >= priorite(top(p))))
+			while((!EmptyStack(p))&&(isOperator(top(p)))&&(priority(t[i]) >= priority(top(p))))
 			{
 				pop(&p, &x);
 				push(&r, x);
@@ -89,21 +89,21 @@ void PrintStack(Stack* p, Stack* r)
 	for( pTmp = p, rTmp = r; (pTmp)&&(rTmp); pTmp = pTmp->svt, rTmp = rTmp->svt)
 	{
 		printf("\t");
-		afficheElm(pTmp->info);
+		PrintElm(pTmp->info);
 		printf("\t\t");
-		afficheElm(rTmp->info);
+		PrintElm(rTmp->info);
 		printf("\n");
 	}
 	for( ;(pTmp); pTmp = pTmp->svt)
 	{
 		printf("\t");
-		afficheElm(pTmp->info);
+		PrintElm(pTmp->info);
 		printf("\n");
 	}
 	for( ;(rTmp); rTmp = rTmp->svt)
 	{
 		printf("\t\t\t");
-		afficheElm(rTmp->info);
+		PrintElm(rTmp->info);
 		printf("\n");
 	}
 }
@@ -120,7 +120,7 @@ double Evaluate(Stack** p)
 	{
 		PrintStack( *p, r);
 		pop(p, &x);
-		if (operande(x))
+		if (isOperand(x))
 			push(&r, x);
 		else
 		{

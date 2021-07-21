@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/** Struct untuk membedakan operator dan operand **/
+/** Struct untuk membedakan isOperator dan operand **/
  typedef struct
  {
  	double val;
@@ -16,46 +16,46 @@
  #define L_MAX 100
 
  /** Memeriksa karakter **/
-int charAdmis(char c);
+int charValidation(char c);
 
 /** Analisis dari char*exp **/
-int lexiqueJuste(char* exp);
+int verify(char* exp);
 
 /** Return 1 jika c merupakan operand**/
-int charOperande(char c);
+int isCharOperand(char c);
 
-/** Return 1 jika c merupakan operator**/
-int charOperateur(char c);
+/** Return 1 jika c merupakan isOperator**/
+int isCharOperator(char c);
 
 
 /** Syntax expression **/
-int syntaxiqueJuste(char* exp);
+int parenthesis(char* exp);
 
 
 /** Mengubah string menjadi float**/
-void chaineAuFloat(char *ch, Elm *t, int *n);
+void StringtoFloat(char *ch, Elm *t, int *n);
 
 
-/** Menentukan e apakah operator**/
-int operateur(Elm e);
+/** Menentukan e apakah Operator**/
+int isOperator(Elm e);
 
 
 /** Menentukan e apakah operand **/
-int operande(Elm e);
+int isOperand(Elm e);
 
 
 /**
- Mengembalikan prioritas operator contoh:
+ Mengembalikan prioritas Operator contoh:
  * 1 => { *, /, % }
  * 2 => { +, - }
  */
-int priorite(Elm e);
+int priority(Elm e);
 
 
 /** Melakukan operasi  */
 double operation(Elm x1, Elm op, Elm x2);
 
 /** Menampilkan elemen **/
-void afficheElm(Elm e);
+void PrintElm(Elm e);
 
 #endif // EXPRESSION_H_INCLUDED
