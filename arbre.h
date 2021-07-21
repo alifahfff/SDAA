@@ -25,7 +25,7 @@ typedef struct elmbTree
  *Vérifier si l'bTree est Empty
  *return 0 <=> bTree non Empty
  */
-int MakeEmptybTree(bTree* T);
+int isEmptybTree(bTree* T);
 
 /**
  *succKiri(bTree*)

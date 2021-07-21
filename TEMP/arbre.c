@@ -1,8 +1,8 @@
 #include "Tree.h"
 
-int MakeEmptyTree(bTree* T)
+int isEmptyTree(bTree* T)
 {
-	if (a == NULL)
+	if (T == NULL)
 		return 1;
 	else
 		return 0;
@@ -37,33 +37,33 @@ bTree* CreateNode(Elm X)
 }
 
 
-void initStackA(StackATree** p)
+void initStackA(StackAbTree** p)
 {
 	(*p) = NULL;
 }
 
-int StackAEmpty(StackATree* p)
+int StackAEmpty(StackAbTree* p)
 {
 	return p == NULL;
 }
 
-Tree* TopStackA(StackATree* p)
+Tree* TopStackA(StackAbTree* p)
 {
 	return p->info;
 }
 
-void PushStackrA(StackATree** p, bTree* T)
+void PushStackrA(StackAbTree** p, bTree* T)
 {
-	StackATree* q;
-	q = (StackATree*)malloc(sizeof(StackATree));
+	StackAbTree* q;
+	q = (StackAbTree*)malloc(sizeof(StackAbTree));
 	q->info = T;
 	q->svt = (*p);
 	(*p) = q;
 }
 
-void PopStackrA(StackATree** p, bTree** T)
+void PopStackrA(StackAbTree** p, bTree** T)
 {
-	StackATree* q;
+	StackAbTree* q;
 	q = (*p);
 	(*p) = q->svt;
 	(*T) = q->info;
@@ -81,14 +81,14 @@ bTree* constTree(Elm* X, int n)
 	Tree* f1;
 	Tree* f2;
 	/*initialiser la Stack Pops Trees*/
-	StackATree* pTree;
+	StackAbTree* pTree;
 	initStackA(&pTree);
 
 	Elm I;
 	while(!StackEmpty(p))
 	{
 		PopStackr(&p, &I);
-		if(operande(I))
+		if(isOperand(I))
 		{
 			f = CreateNode(I);
 			PushStackrA(&pTree, f);
@@ -112,9 +112,9 @@ bTree* constTree(Elm* X, int n)
 double EvaluateTree(bTree* T)
 {
 	Elm x, y;
-	if(!TreeEmpty(T))
+	if(!isEmptyTree(T))
 	{
-		if(operateur(T->info))
+		if(isOperator(T->info))
 		{
 			x.val = EvaluateTree(Left(T));
 			y.val = EvaluateTree(Right(T));
@@ -128,7 +128,7 @@ double EvaluateTree(bTree* T)
 
 void PrintTree(bTree* T)
 {
-	if(!TreeEmpty(T))
+	if(!isEmptyTree(T))
 	{
         printf("Node saat ini : ");
         PrintElm(T->info);
