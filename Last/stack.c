@@ -26,7 +26,7 @@ void push(Stack** p, Infotype e)
 	Stack* q;
 	q = (Stack*)malloc(sizeof(Stack));
 	q->info = e;
-	q->svt = (*p);
+	q->next = (*p);
 	(*p) = q;
 }
 
@@ -34,7 +34,7 @@ void pop(Stack** p, Infotype* e)
 {
 	Stack *top;
 	top = (*p);
-	(*p) = top->svt;
+	(*p) = top->next;
 	*e = top->info;
 	free(top);
 }
@@ -86,7 +86,7 @@ void PrintStack(Stack* p, Stack* r)
 	
 	Stack* pTmp;
 	Stack* rTmp;
-	for( pTmp = p, rTmp = r; (pTmp)&&(rTmp); pTmp = pTmp->svt, rTmp = rTmp->svt)
+	for( pTmp = p, rTmp = r; (pTmp)&&(rTmp); pTmp = pTmp->next, rTmp = rTmp->next)
 	{
 		printf("\t");
 		PrintInfotype(pTmp->info);
@@ -94,13 +94,13 @@ void PrintStack(Stack* p, Stack* r)
 		PrintInfotype(rTmp->info);
 		printf("\n");
 	}
-	for( ;(pTmp); pTmp = pTmp->svt)
+	for( ;(pTmp); pTmp = pTmp->next)
 	{
 		printf("\t");
 		PrintInfotype(pTmp->info);
 		printf("\n");
 	}
-	for( ;(rTmp); rTmp = rTmp->svt)
+	for( ;(rTmp); rTmp = rTmp->next)
 	{
 		printf("\t\t\t");
 		PrintInfotype(rTmp->info);
@@ -132,4 +132,25 @@ double Evaluate(Stack** p)
 		//printf("----------------------------------\n");
 	}
 	return top(r).val;
+}
+
+void aturan()
+{
+	char buff[1000];
+  	FILE *fptr;
+
+  	// membuka file
+ 	if ((fptr = fopen("aturan.txt","r")) == NULL){
+      printf("Error: File tidak ada!");
+      // Tutup program karena file gak ada.
+      exit(1);
+  }
+
+  	while(!feof(fptr)){
+  		fgets(buff,1000,fptr);
+  		printf("%s",buff);
+	  }
+
+  	// tutup file
+  	fclose(fptr);
 }

@@ -1,3 +1,9 @@
+/* PEMBUAT : 
+   D31B - JTK 2020
+   ALIFAH FISALSABILAWATI 201511035
+   FAISHAL MUHAMMAD 	  201511039
+*/
+
 #include<stdio.h>
 #include<conio.h>
 #include<windows.h>
@@ -6,15 +12,7 @@
 #include "stack.h"
 #include "tree.h"
 
-
-void gotoxy(int x, int y){
-    COORD coord;
-    coord.X = x;
-    coord.Y = y;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
-}
-
-int choisireTypeEvaluation()
+int pilihperhitungan()
 {
 	int chois;
 	do
@@ -28,6 +26,7 @@ int choisireTypeEvaluation()
 	return chois;
 }
 
+
 int main(){
 	int pilihan;
 	printf("\t\t\t        \xb3          ====== Menu Kalkulator ======            \xb3\n");
@@ -36,7 +35,9 @@ int main(){
 	printf("\t\t\t        \xb3                                                   \xb3\n");
 	printf("\t\t\t        \xb3             2. Tampilkan Tree                     \xb3\n");
 	printf("\t\t\t        \xb3                                                   \xb3\n");
-	printf("\t\t\t        \xb3             3. Exit                               \xb3\n");
+	printf("\t\t\t        \xb3             3. Aturan program                     \xb3\n");
+	printf("\t\t\t        \xb3                                                   \xb3\n");
+	printf("\t\t\t        \xb3             4. Exit                               \xb3\n");
 	printf("\t\t\t        \xb3                                                   \xb3\n");
 	printf("\t\t\t        \xc0\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xd9\n");
 	printf("\t\t\t        Masukan pilihan : ");
@@ -45,7 +46,7 @@ int main(){
 		case 1:
 				char Exp[L_MAX];
                 int syn, lex;
-                int ChoisTypeEvaluation;
+                int pil;
                 Infotype t[L_MAX];
                 int n;
                 Stack* p;
@@ -69,12 +70,12 @@ int main(){
 					else
 					{
 						/* Memilih evaluasi menggunakan tree atau stack */
-						ChoisTypeEvaluation = choisireTypeEvaluation();
+						pil = pilihperhitungan();
 
 						/* Mengubah ekpresi menjadi array */
 						StringtoFloat(Exp, t, &n);
 
-						switch (ChoisTypeEvaluation)
+						switch (pil)
 						{
 							case 1:
 								initStack(&p);
@@ -101,7 +102,7 @@ int main(){
 			break;
 		case 2:
 			break;
-		case 3:
+		case 3:aturan();
 			break;
 		case 4:
 			exit(0);

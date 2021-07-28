@@ -1,0 +1,15 @@
+			-----------------------------ATURAN PROGRAM KALKULATORR------------------------------
+			|1. Dalam program kalkulator yang kami buat ada 2 cara untung menghitung operand,    |
+			|pertama menghitung menggunakan stack lalu yang kedua menghitung menggunakan tree    |
+			|2. Saat user ingin menghitung, user tinggal memasukkan angka yang diinginkan lalu   |
+			|klik enter untuk mendapatkan hasil perhitungan					     |
+			|3. Dalam program kalkulator yang kami buat ada aturan prioritas operator untuk      |
+			|mengoperasikan operand diantaranya :						     |	
+			|- operator ')' merupakan prioritas paling tinggi, menjadi urutan pertama	     |
+			|- operator '(' urutan kedua							     |	
+			|- operator '-' urutan ketiga							     |	
+			|- operator '+' urutan keempat							     |	
+			|- operator '%' urutan kelima							     |	
+			|- operator '/' urutan keenam							     |
+			|- operator '*' urutan ketujuh							     |		
+			-------------------------------------------------------------------------------------

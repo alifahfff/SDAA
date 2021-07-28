@@ -3,13 +3,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <conio.h>
 #include "evaluasi.h"
 
 /** struct stack **/
-typedef struct InfotypePile
+typedef struct InfotypeStack
 {
 	Infotype info;
-	struct InfotypePile* svt;
+	struct InfotypeStack* next;
 }Stack;
 
 /* Inisialisasi stack */
@@ -41,5 +43,7 @@ void PrintStack(Stack* p, Stack* r);
 /** Evaluasi stack  **/
 double Evaluate(Stack** p);
 
+/** aturan program **/
+void aturan();
 
 #endif // STACK_H_INCLUDED
