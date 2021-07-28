@@ -30,8 +30,8 @@ int isCharOperator(char c);
 int parenthesis(char* exp);
 
 
-/** Mengubah string menjadi float**/
-void StringtoFloat(char *ch, Infotype *t, int *n);
+/** Mengubah char menjadi float**/
+void ChartoFloat(char *ch, Infotype *t, int *n);
 
 
 /** Menentukan e apakah Operator**/
@@ -56,4 +56,4 @@ double operation(Infotype x1, Infotype op, Infotype x2);
 /** Menampilkan elemen **/
 void PrintInfotype(Infotype e);
 
-#endif // EXPRESSION_H_INCLUDED
+#endif 

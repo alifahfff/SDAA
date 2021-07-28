@@ -11,28 +11,39 @@ typedef struct InfotypeTree
 {
 	Infotype info;
 	struct InfotypeTree* pointerLeft;
+	struct InfotypeTree* pointerParent;
 	struct InfotypeTree* pointerRight;
 }Tree;
 
+//Fungsi Mengecek Tree
 int isEmptyTree(Tree* a);
 
+//Fungsi Memanggil Pointer kiri
 Tree* LeftNode(Tree* a);
 
+//Fungsi Memanggil Pointer Parent
+Tree* ParentNode(Tree* a);
+
+//Fungsi Memanggil Pointer Kanan
 Tree* RightNode(Tree* a);
 
+//Fungsi Mengetahui leaf(daun)
 int isLeaf(Tree* a);
 
+//Fungsi untuk membuat node
 Tree* CreateNode(Infotype e);
 
 
 typedef struct InfotypeStackTree
 {
 	Tree* info;
-	struct InfotypeStackTree* svt;
+	struct InfotypeStackTree* next;
 }StackTree;
 
-void StackAEmpty(StackTree** p);
+//Prosedur Inisialisasi Stack 
+void initStackA(StackTree** p);
 
+//Fungsi Pengecekan stack
 int StackAEmpty(StackTree* p);
 
 Tree* TopStack(StackTree* p);
@@ -49,5 +60,10 @@ double EvaluateTree(Tree* a);
 
 void PrintTree(Tree* a);
 
-#endif // Tree_H_INCLUDED
+void PostOrder(Tree* a);
+
+void PreOrder(Tree* a);
+
+void InOrder(Tree* a);
+#endif 
 
